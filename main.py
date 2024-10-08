@@ -22,6 +22,7 @@ Returns:
 def elapsed_timer_cnt(timer):
     global elapsed_time
     elapsed_time += 1
+    print("debug:" ,elapsed_time)
     # TODO:ディスプレイに現在経過時間を出力する関数を呼び出す
 
 
@@ -46,14 +47,20 @@ def timer(timer_1:int, timer_2:int, timer_3:int):
     while(1):
         # timer_1の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 > elapsed_time and timer_3 > elapsed_time):
+            print("debug:alarm timer_1")
             # TODO:ソレノイドを1回鳴らす処理をする
         
         # timer_2の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 > elapsed_time):
+            print("debug:alarm timer_2")
             # TODO:ソレノイドを2回鳴らす処理をする
         
         # timer_3の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 <= elapsed_time):
+            print("debug:alarm timer_3")
             # TODO:ソレノイドを3回鳴らす処理をする
-            Timer.deinit()
+            timer.deinit()
             break
+
+# test用呼び出し
+timer(5,10,15)
