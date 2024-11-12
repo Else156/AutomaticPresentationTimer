@@ -5,6 +5,7 @@
 |マイコン |Raspberry Pi Pico |770円 |https://akizukidenshi.com/catalog/g/g116132/ |
 |電池BOX |BH-361B　|100円 |https://akizukidenshi.com/catalog/g/g101224/　|
 |ディスプレイ |SC1602BSLB-XA-GB-K　|980円(購入済み) |https://akizukidenshi.com/catalog/g/g100038/　|
+|ソレノイド |ZHO-0420S-05A4.5(5V)　|750円(購入済み) |https://akizukidenshi.com/catalog/g/g110761/|
 
 
 ## 開発環境について
