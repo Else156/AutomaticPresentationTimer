@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="ページ1" id="sI3mBpiaaQE3uV7O4Mmj">
-        <mxGraphModel dx="576" dy="419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1386" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -10,7 +10,7 @@
                 <mxCell id="MFX4hYlXogge4HS8p2gm-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#60a917;strokeColor=#2D7600;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="49" y="90" width="334.645" height="118.11" as="geometry"/>
                 </mxCell>
-                <mxCell id="MFX4hYlXogge4HS8p2gm-3" value="①〇〇：〇〇　②&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 17px;&quot;&gt;③&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇　&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇ケイカ&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;strokeColor=default;fillColor=default;" parent="1" vertex="1">
+                <mxCell id="MFX4hYlXogge4HS8p2gm-3" value="①〇〇：〇〇　②&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 17px;&quot;&gt;③&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇　タイマー&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;：&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;〇〇&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=17;strokeColor=default;fillColor=default;" parent="1" vertex="1">
                     <mxGeometry x="77.64" y="107.95" width="277.36" height="82.2" as="geometry"/>
                 </mxCell>
                 <mxCell id="MFX4hYlXogge4HS8p2gm-6" value="" style="triangle;whiteSpace=wrap;html=1;flipH=0;direction=north;rotation=-90;" parent="1" vertex="1">
@@ -58,17 +58,11 @@
                 <mxCell id="MFX4hYlXogge4HS8p2gm-26" value="電池交換&lt;div&gt;ランプ&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="111" y="333.39" width="70" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="29" y="460" width="770" height="350" as="geometry"/>
                 </mxCell>
                 <mxCell id="MFX4hYlXogge4HS8p2gm-29" value="電池BOX（ねじで蓋を開ける感じにする）&lt;div&gt;https://akizukidenshi.com/catalog/g/g101224/&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="220" y="560" width="437.007" height="188.976" as="geometry"/>
-                </mxCell>
-                <mxCell id="ukh_3hsAMWRuC8tGc4X5-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="840" y="60" width="141" height="350" as="geometry"/>
-                </mxCell>
-                <mxCell id="ukh_3hsAMWRuC8tGc4X5-3" value="HDMI出力ポート" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;" parent="1" vertex="1">
-                    <mxGeometry x="888" y="309.28" width="99" height="40.36" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
