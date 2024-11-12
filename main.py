@@ -3,7 +3,27 @@
 参考サイト：https://murasan-itlab.com/raspberry-pi-pico-w-timer-interrupt/
 """
 from machine import Timer
+from machine import Pin
 import micropython
+import time
+
+# GPIOピン
+SOLENOID_PIN = 28
+RIGHT_BOTTON_PIN = 1
+LEFT_BOTTON_PIN = 2
+MINUTES_BOTTON_PIN = 3
+SECOND_BOTTON_PIN = 4
+START_STOP_BOTTON_PIN = 5
+RESET_BOTTON_PIN = 6
+
+# GPIOピン設定
+SOLENOID = Pin(SOLENOID_PIN,Pin.OUT)
+RIGHT_BOTTON = Pin(RIGHT_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+LEFT_BOTTON = Pin(LEFT_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+MINUTES_BOTTON = Pin(MINUTES_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+SECOND_BOTTON = Pin(SECOND_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+START_STOP_BOTTON = Pin(START_STOP_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+RESET_BOTTON = Pin(RESET_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
 
 # 割り込み処理中の例外を作成するための設定
 micropython.alloc_emergency_exception_buf(100)
@@ -11,6 +31,36 @@ micropython.alloc_emergency_exception_buf(100)
 # 経過時間を格納
 elapsed_time = 0.0
 
+"""タイマー時間を設定するフェーズに動作する関数
+Args:
+    None
+Returns:
+    None
+"""
+def set_timer():
+    while(1):
+        if(RIGHT_BOTTON.value == 1):
+            # ディスプレイのカーソルを右にずらすプログラム
+        elif(LEFT_BOTTON.value == 1):
+            # ディスプレイのカーソルを右にずらすプログラム
+        elif(MINUTES_BOTTON.value == 1):
+            # 分数を設定するプログラム
+        elif(SECOND_BOTTON.value == 1):
+            # 秒数を設定するプログラム
+        elif(START_STOP_BOTTON.value == 1):
+            return
+        
+
+"""ソレノイドを動かしてベルを鳴らす関数
+Args:
+    None
+Returns:
+    None
+"""
+def ring_the_bell():
+    SOLENOID.value(1)
+    time.sleep(0.1) # ここが原因で時間測定の処理が止まる場合はほかの方法を考える
+    SOLENOID.value(0)
 
 """経過時間をカウントする関数
 Args:
@@ -48,19 +98,27 @@ def timer(timer_1:int, timer_2:int, timer_3:int):
         # timer_1の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 > elapsed_time and timer_3 > elapsed_time):
             print("debug:alarm timer_1")
-            # TODO:ソレノイドを1回鳴らす処理をする
+            ring_the_bell()
         
         # timer_2の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 > elapsed_time):
             print("debug:alarm timer_2")
-            # TODO:ソレノイドを2回鳴らす処理をする
+            ring_the_bell()
+            time.sleep(0.3)
+            ring_the_bell()
         
         # timer_3の時間が過ぎた場合
         if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 <= elapsed_time):
             print("debug:alarm timer_3")
-            # TODO:ソレノイドを3回鳴らす処理をする
+            ring_the_bell()
+            time.sleep(0.3)
+            ring_the_bell()
+            time.sleep(0.3)
             timer.deinit()
             break
+
+
+# set_timer()
 
 # test用呼び出し
 timer(5,10,15)
