@@ -31,11 +31,15 @@ micropython.alloc_emergency_exception_buf(100)
 # 経過時間を格納
 elapsed_time = 0.0
 
+# 直前に鳴らしたベルの回数を格納
+last_bell_count = 0
+
 """タイマー時間を設定するフェーズに動作する関数
 Args:
     None
 Returns:
     None
+"""
 """
 def set_timer():
     while(1):
@@ -49,7 +53,7 @@ def set_timer():
             # 秒数を設定するプログラム
         elif(START_STOP_BOTTON.value == 1):
             return
-        
+"""        
 
 """ソレノイドを動かしてベルを鳴らす関数
 Args:
@@ -88,7 +92,7 @@ Returns:
     None
 """
 def timer(timer_1:int, timer_2:int, timer_3:int):
-    global elapsed_time
+    global elapsed_time,last_bell_count
     timer = Timer()     # タイマーを作成     
 
     # タイマーを初期化して、周期的にコマンドラインに文字を出力する
@@ -96,25 +100,32 @@ def timer(timer_1:int, timer_2:int, timer_3:int):
 
     while(1):
         # timer_1の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 > elapsed_time and timer_3 > elapsed_time):
+        if(timer_1 <= elapsed_time and timer_2 > elapsed_time and timer_3 > elapsed_time and last_bell_count == 0):
             print("debug:alarm timer_1")
             ring_the_bell()
+            last_bell_count += 1
         
         # timer_2の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 > elapsed_time):
+        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 > elapsed_time and last_bell_count == 1):
             print("debug:alarm timer_2")
+
             ring_the_bell()
             time.sleep(0.3)
             ring_the_bell()
+
+            last_bell_count += 1
         
         # timer_3の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 <= elapsed_time):
+        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 <= elapsed_time and last_bell_count == 2):
             print("debug:alarm timer_3")
+
             ring_the_bell()
             time.sleep(0.3)
             ring_the_bell()
             time.sleep(0.3)
             timer.deinit()
+
+            last_bell_count = 0
             break
 
 
