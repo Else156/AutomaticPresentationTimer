@@ -87,3 +87,12 @@ Raspberry Pi Pico の USB ケーブルを PC から外し、 USB 充電器やモ
 LED が点滅すれば OK です。<br>
 参考資料は以下に示す<br>
 https://qiita.com/IoriGunji/items/ebe6cefd3562639f7ca2
+
+
+
+## 参考文献
+### Raspberry Pi Picoについて
+https://sozorablog.com/raspberry-pi-pico/#pico%E3%81%AF%E9%9B%BB%E6%B1%A0%E9%A7%86%E5%8B%95%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B
+### ソレノイドの回路など
+https://highso.hatenablog.com/entry/2019/02/25/180000
+https://ameblo.jp/solcon/entry-12278991497.html
