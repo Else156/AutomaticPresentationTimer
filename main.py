@@ -1,135 +1,205 @@
-"""
-自動プレゼンテーションタイマーのメインプログラム
-参考サイト：https://murasan-itlab.com/raspberry-pi-pico-w-timer-interrupt/
-"""
-from machine import Timer
-from machine import Pin
-import micropython
+# 必要なライブラリをインポート
+from machine import Pin, Timer
 import time
+from lcd import Lcd
 
-# GPIOピン
-SOLENOID_PIN = 28
-RIGHT_BOTTON_PIN = 1
-LEFT_BOTTON_PIN = 2
-MINUTES_BOTTON_PIN = 3
-SECOND_BOTTON_PIN = 4
-START_STOP_BOTTON_PIN = 5
-RESET_BOTTON_PIN = 6
+# --- グローバル変数と定数設定 ---
 
 # GPIOピン設定
-SOLENOID = Pin(SOLENOID_PIN,Pin.OUT)
-RIGHT_BOTTON = Pin(RIGHT_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
-LEFT_BOTTON = Pin(LEFT_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
-MINUTES_BOTTON = Pin(MINUTES_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
-SECOND_BOTTON = Pin(SECOND_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
-START_STOP_BOTTON = Pin(START_STOP_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
-RESET_BOTTON = Pin(RESET_BOTTON_PIN,Pin.IN,Pin.PULL_DOWN)
+# ソレノイド
+SOLENOID_PIN = 28
+# ボタン
+UP_BUTTON_PIN = 1
+DOWN_BUTTON_PIN = 2
+INCREASE_BUTTON_PIN = 3
+DECREASE_BUTTON_PIN = 4
+START_STOP_BUTTON_PIN = 5
+RESET_BUTTON_PIN = 6
 
-# 割り込み処理中の例外を作成するための設定
-micropython.alloc_emergency_exception_buf(100)
+# パラレルLCDのピン設定
+LCD_RS_PIN = 16
+LCD_E_PIN = 17
+LCD_D4_PIN = 18
+LCD_D5_PIN = 19
+LCD_D6_PIN = 20
+LCD_D7_PIN = 21
 
-# 経過時間を格納
-elapsed_time = 0.0
+# 状態管理のための定数 (変更なし)
+STATE_SETTING = 0
+STATE_READY = 1
+STATE_RUNNING = 2
+STATE_PAUSED = 3
+STATE_FINISHED = 4
 
-# 直前に鳴らしたベルの回数を格納
-last_bell_count = 0
+# --- グローバル変数 --- (変更なし)
+current_state = STATE_SETTING
+elapsed_time = 0
+bell_times = [0, 0, 0]
+bell_rang_flags = [False, False, False]
+setting_cursor_pos = 0
+last_button_press_time = 0
 
-"""タイマー時間を設定するフェーズに動作する関数
-Args:
-    None
-Returns:
-    None
-"""
-"""
-def set_timer():
-    while(1):
-        if(RIGHT_BOTTON.value == 1):
-            # ディスプレイのカーソルを右にずらすプログラム
-        elif(LEFT_BOTTON.value == 1):
-            # ディスプレイのカーソルを右にずらすプログラム
-        elif(MINUTES_BOTTON.value == 1):
-            # 分数を設定するプログラム
-        elif(SECOND_BOTTON.value == 1):
-            # 秒数を設定するプログラム
-        elif(START_STOP_BOTTON.value == 1):
-            return
-"""        
+# --- ハードウェア初期化 ---
+# ソレノイド・ボタン (変更なし)
+solenoid = Pin(SOLENOID_PIN, Pin.OUT)
+solenoid.value(0)
+up_button = Pin(UP_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
+down_button = Pin(DOWN_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
+increase_button = Pin(INCREASE_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
+decrease_button = Pin(DECREASE_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
+start_stop_button = Pin(START_STOP_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
+reset_button = Pin(RESET_BUTTON_PIN, Pin.IN, Pin.PULL_DOWN)
 
-"""ソレノイドを動かしてベルを鳴らす関数
-Args:
-    None
-Returns:
-    None
-"""
-def ring_the_bell():
-    SOLENOID.value(1)
-    time.sleep(0.1) # ここが原因で時間測定の処理が止まる場合はほかの方法を考える
-    SOLENOID.value(0)
+# ディスプレイの初期化
+lcd = Lcd(rs=LCD_RS_PIN, e=LCD_E_PIN, d4=LCD_D4_PIN, d5=LCD_D5_PIN, d6=LCD_D6_PIN, d7=LCD_D7_PIN)
+lcd.putstr("Presentation\nTimer Ready!")
+time.sleep(2)
 
-"""経過時間をカウントする関数
-Args:
-    timer:
-        タイマーオブジェクト
-Returns:
-    None
-"""
-def elapsed_timer_cnt(timer):
+# タイマーオブジェクト (変更なし)
+timer = Timer()
+
+# --- 関数定義 ---
+def debounce():
+    global last_button_press_time
+    now = time.ticks_ms()
+    if time.ticks_diff(now, last_button_press_time) < 200:
+        return False
+    last_button_press_time = now
+    return True
+
+def format_time(seconds):
+    m = seconds // 60
+    s = seconds % 60
+    return f"{m:02d}:{s:02d}"
+
+def ring_bell(count):
+    for _ in range(count):
+        solenoid.value(1)
+        time.sleep(0.1)
+        solenoid.value(0)
+        time.sleep(0.3)
+
+def update_setting_display():
+    """設定画面をディスプレイに表示する"""
+    lcd.clear()
+    # 1行目に表示するベル設定
+    cursor1 = ">" if setting_cursor_pos == 0 else " "
+    lcd.move_to(0, 0)
+    lcd.putstr(f"{cursor1}Bell 1: {format_time(bell_times[0])}")
+    
+    # 2行目に表示するベル設定
+    cursor2 = ">" if setting_cursor_pos == 1 else " "
+    lcd.move_to(0, 1)
+    lcd.putstr(f"{cursor2}Bell 2: {format_time(bell_times[1])}")
+
+    # 3つ目の設定はカーソルが来たときだけ表示を切り替える
+    if setting_cursor_pos == 2:
+        cursor3 = ">"
+        lcd.clear()
+        lcd.move_to(0,0)
+        lcd.putstr(f" Bell 2: {format_time(bell_times[1])}") # 前の設定を上段に
+        lcd.move_to(0, 1)
+        lcd.putstr(f"{cursor3}Bell 3: {format_time(bell_times[2])}")
+
+def tick(t):
     global elapsed_time
     elapsed_time += 1
-    print("debug:" ,elapsed_time)
-    # TODO:ディスプレイに現在経過時間を出力する関数を呼び出す
+    update_timer_display()
 
-
-"""タイマー機能を制御する関数
-Args:
-    timer_1:
-        int: ベルを1回鳴らす時間
-    timer_2:
-        int: ベルを2回鳴らす時間
-    timer_3:
-        int: ベルを3回鳴らす時間
-Returns:
-    None
-"""
-def timer(timer_1:int, timer_2:int, timer_3:int):
-    global elapsed_time,last_bell_count
-    timer = Timer()     # タイマーを作成     
-
-    # タイマーを初期化して、周期的にコマンドラインに文字を出力する
-    timer.init(mode=Timer.PERIODIC, freq=1, callback=elapsed_timer_cnt)
-
-    while(1):
-        # timer_1の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 > elapsed_time and timer_3 > elapsed_time and last_bell_count == 0):
-            print("debug:alarm timer_1")
-            ring_the_bell()
-            last_bell_count += 1
-        
-        # timer_2の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 > elapsed_time and last_bell_count == 1):
-            print("debug:alarm timer_2")
-
-            ring_the_bell()
-            time.sleep(0.3)
-            ring_the_bell()
-
-            last_bell_count += 1
-        
-        # timer_3の時間が過ぎた場合
-        if(timer_1 <= elapsed_time and timer_2 <= elapsed_time and timer_3 <= elapsed_time and last_bell_count == 2):
-            print("debug:alarm timer_3")
-
-            ring_the_bell()
-            time.sleep(0.3)
-            ring_the_bell()
-            time.sleep(0.3)
-            timer.deinit()
-
-            last_bell_count = 0
+def update_timer_display():
+    lcd.clear()
+    lcd.putstr(f"Time: {format_time(elapsed_time)}")
+    next_bell_time = -1
+    next_bell_num = 0
+    sorted_times = sorted([(t, i+1) for i, t in enumerate(bell_times) if t > 0])
+    for t, num in sorted_times:
+        if t > elapsed_time:
+            next_bell_time = t
+            next_bell_num = num
             break
+    if next_bell_time != -1:
+        lcd.move_to(0, 1)
+        lcd.putstr(f"Next: B{next_bell_num} {format_time(next_bell_time)}")
+    else:
+        lcd.move_to(0, 1)
+        lcd.putstr("All bells rang.")
 
+def reset_timer():
+    global elapsed_time, current_state, bell_rang_flags
+    timer.deinit()
+    elapsed_time = 0
+    bell_rang_flags = [False, False, False]
+    current_state = STATE_SETTING
+    update_setting_display()
 
-# set_timer()
+# --- メインループ ---
+def main():
+    global current_state, setting_cursor_pos, bell_times
+    
+    update_setting_display()
 
-# test用呼び出し
-timer(5,10,15)
+    while True:
+        if current_state == STATE_SETTING:
+            if up_button.value() and debounce():
+                setting_cursor_pos = (setting_cursor_pos - 1 + 3) % 3
+                update_setting_display()
+            
+            if down_button.value() and debounce():
+                setting_cursor_pos = (setting_cursor_pos + 1) % 3
+                update_setting_display()
+
+            if increase_button.value(): # 増加は長押しを考慮してdebounceを外す
+                bell_times[setting_cursor_pos] += 1
+                update_setting_display()
+                time.sleep(0.1) # 連続増加のスピード調整
+                
+            if decrease_button.value(): # 減少も同様
+                if bell_times[setting_cursor_pos] > 0:
+                    bell_times[setting_cursor_pos] -= 1
+                    update_setting_display()
+                time.sleep(0.1)
+
+            if start_stop_button.value() and debounce():
+                if any(t > 0 for t in bell_times):
+                    current_state = STATE_READY
+                    lcd.clear()
+                    lcd.putstr("Ready to Start\nPress S/S button")
+        
+        elif current_state in [STATE_READY, STATE_PAUSED]:
+            if start_stop_button.value() and debounce():
+                current_state = STATE_RUNNING
+                timer.init(freq=1, mode=Timer.PERIODIC, callback=tick)
+                update_timer_display()
+            
+            if reset_button.value() and debounce():
+                reset_timer()
+
+        elif current_state == STATE_RUNNING:
+            for i in range(3):
+                if bell_times[i] > 0 and not bell_rang_flags[i] and elapsed_time >= bell_times[i]:
+                    ring_bell(i + 1)
+                    bell_rang_flags[i] = True
+            
+            if all(flag or time == 0 for flag, time in zip(bell_rang_flags, bell_times)):
+                current_state = STATE_FINISHED
+                timer.deinit()
+                lcd.move_to(0, 1)
+                lcd.putstr("Finished!       ")
+
+            if start_stop_button.value() and debounce():
+                current_state = STATE_PAUSED
+                timer.deinit()
+                lcd.move_to(0, 1)
+                lcd.putstr("PAUSED          ")
+
+            if reset_button.value() and debounce():
+                reset_timer()
+        
+        elif current_state == STATE_FINISHED:
+            if reset_button.value() and debounce():
+                reset_timer()
+
+        time.sleep(0.01)
+
+if __name__ == "__main__":
+    main()

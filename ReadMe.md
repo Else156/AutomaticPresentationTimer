@@ -5,8 +5,6 @@
 |マイコン |Raspberry Pi Pico |770円 |https://akizukidenshi.com/catalog/g/g116132/ |
 |ディスプレイ |SC1602BSLB-XA-GB-K　|980円(購入済み) |https://akizukidenshi.com/catalog/g/g100038/　|
 |ソレノイド |ZHO-0420S-05A4.5(5V)　|750円(購入済み) |https://akizukidenshi.com/catalog/g/g110761/|
-|MOSFET |IRLU3410PBF　|100円 |https://akizukidenshi.com/catalog/g/g106025/
-|整流用ダイオード |1000V1A 1N4007-B　|100円 |https://akizukidenshi.com/catalog/g/g108327/
 
 
 ## 開発環境について
