@@ -1,6 +1,6 @@
 # 自動プレゼンテーションタイマー
 ## TODOリスト
-以下にTODOリストが格納されている
+以下にTODOリストが格納されている<br>
 https://github.com/users/Else156/projects/1/views/1
 
 ## 仕様について
