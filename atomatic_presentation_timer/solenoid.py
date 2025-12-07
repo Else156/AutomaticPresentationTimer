@@ -15,7 +15,19 @@ if __name__ == "__main__":
     sleep(3) 
     try:
         while True:
-            activate_solenoid(3)  
+            activate_solenoid(0.1)  
+            sleep(5)
+            
+            activate_solenoid(0.1)  
+            sleep(0.1)
+            activate_solenoid(0.1)  
+            sleep(5)
+
+            activate_solenoid(0.1)  
+            sleep(0.1)
+            activate_solenoid(0.1) 
+            sleep(0.1) 
+            activate_solenoid(0.1)  
             sleep(5)
     except KeyboardInterrupt:
         solenoid_pin.low()
