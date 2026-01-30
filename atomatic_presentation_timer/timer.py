@@ -1,7 +1,5 @@
 # タイマー機能
 # メインプログラムに結合する前の単体テストコード
-
-import machine
 import time
 
 
@@ -36,7 +34,7 @@ def run_timer(target_seconds):
 
         print("\n残り: 0秒")
         print("!!! 時間です !!!")
-        
+
     except KeyboardInterrupt:
         print("\n中断されました。")
     
