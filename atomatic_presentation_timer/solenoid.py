@@ -1,4 +1,5 @@
 # ZHO-0420S-05A4.5(5V)を制御するためのコード
+# メインプログラムに結合する前の単体テストコード
 from machine import Pin
 from utime import sleep
 
