@@ -8,7 +8,7 @@ Presentation Timer Mode (待機・計測画面)
 
 import time
 import display
-#import hardware
+import hardware
 
 class TimerStatus:
     """上位コードへ返すステータス定数"""
@@ -53,8 +53,7 @@ class PresentationTimerMode:
             times_to_ring = 3
         
         if times_to_ring > 0:
-            print(f"ベル鳴動: {times_to_ring}回")
-            self.hw.ring_bell(times_to_ring) # ハードウェアへ命令
+            self.hw.ring_bell(times_to_ring) 
 
     def run(self, bell_settings):
         """
@@ -148,19 +147,13 @@ class MockHardware:
 
 # --- 上位コード (Main Program) からの呼び出しイメージ ---
 if __name__ == "__main__":
-    # ハードウェア初期化
-    hw = MockHardware()
-    
-    # タイマーモードのインスタンス作成
+    hw = hardware.HardwareInterface()
     timer_mode = PresentationTimerMode(hw)
     
     # 設定値 (1分, 2分, 30分)
-    settings = [1, 2, 3] # 分単位
-    
-    # 実行
+    settings = [1, 2, 3]
     status = timer_mode.run(settings)
     
-    # 結果に応じた遷移
     if status == TimerStatus.GO_TO_SETTINGS:
         print(">> 設定画面へ切り替えます")
     elif status == TimerStatus.FINISHED:

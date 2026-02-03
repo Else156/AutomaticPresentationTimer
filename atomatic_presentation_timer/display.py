@@ -42,3 +42,44 @@ def draw_timer_screen(current_min, current_sec, bell_settings):
 
     # 描画を反映
     display.show()
+
+def draw_menu_screen(cursor_index, items):
+    """
+    設定メニュー画面を描画する
+    Args:
+        cursor_index (int): 現在選択中のインデックス
+        items (list): 表示する文字列のリスト
+    """
+    display.fill(0)
+    display.text("-- SETTING --", 20, 0)
+    
+    start_y = 12
+    line_height = 10
+    
+    for i, item in enumerate(items):
+        y = start_y + (i * line_height)
+        prefix = ">" if i == cursor_index else " "
+        display.text(f"{prefix} {item}", 0, y)
+        
+    display.show()
+
+def draw_edit_screen(title, value):
+    """
+    値編集画面を描画する
+    Args:
+        title (str): 項目名 (例: "1st Bell")
+        value (int): 現在の設定値 (分)
+    """
+    display.fill(0)
+    display.text(f"Edit: {title}", 0, 0)
+    display.hline(0, 10, 128, 1)
+    
+    # 値を中央に大きく表示
+    val_str = f"{value} min"
+    display.text(val_str, 40, 30)
+    display.text(val_str, 41, 30) # 太字風
+    
+    display.text("Rotate: Change", 0, 45)
+    display.text("Click : OK",     0, 53)
+    
+    display.show()
