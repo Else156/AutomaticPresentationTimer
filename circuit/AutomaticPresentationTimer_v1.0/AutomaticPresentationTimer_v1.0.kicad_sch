@@ -6089,7 +6089,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1000µF 16V"
+		(property "Value" "1000µF 35V"
 			(at 176.784 74.93 0)
 			(effects
 				(font

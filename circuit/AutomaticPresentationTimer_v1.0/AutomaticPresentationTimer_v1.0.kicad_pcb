@@ -2012,7 +2012,7 @@
 				)
 			)
 		)
-		(property "Value" "1000µF 16V"
+		(property "Value" "1000µF 35V"
 			(at 2.5 6.25 0)
 			(layer "F.Fab")
 			(uuid "d9da1328-4965-4bad-b1fb-ed9ff9435e4d")
