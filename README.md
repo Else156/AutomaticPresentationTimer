@@ -20,14 +20,14 @@ Raspberry Pi Pico、SSD1306 OLEDディスプレイ、ソレノイド、および
 | 部品名 | 型番 | URL | 備考 |
 | :--- | :--- | :--- | :--- |
 | Raspberry Pi Pico | SC0915 | [購入先URL](https://akizukidenshi.com/catalog/g/g116132/) | |
-| 有機ELディスプレイ(OLED) 白色 |  | 購入先URL[https://akizukidenshi.com/catalog/g/g112031/]| |
-| イルミネーションロータリーエンコーダ用ピッチ変換基板 | SFE-BOB-11722 | 購入先URL[https://www.switch-science.com/products/1308?srsltid=AfmBOopGGrrqZFvyvS5xYhzGZG8HVmHDNQKUY4yKhhwYDoHrCVhfIAhd] | 廃盤だが千石電商では販売(2026年1月時点） |
-| ソレノイド | ZHO-0420S-05A4.5(5V) | 購入先URL[https://akizukidenshi.com/catalog/g/g110761//] | |
-| NchパワーMOSFET | 2SK4017(Q) | 購入先URL[https://akizukidenshi.com/catalog/g/g107597/] | |
-| カーボン抵抗　10kΩ | RD25S 10K | 購入先URL[https://akizukidenshi.com/catalog/g/g125103/] | |
-| 汎用整流用ダイオード 1000V1A | 1N4007-B | 購入先URL[https://akizukidenshi.com/catalog/g/g108327/] | |
-| 電解コンデンサー1000μF35V | 35ZLH1000MEFC12.5X20 | 購入先URL[https://akizukidenshi.com/catalog/g/g102722/] | |
-| チェック端子(テストポイント) | TEST-22 | 購入先URL[https://akizukidenshi.com/catalog/g/g112216/] | |
+| 有機ELディスプレイ(OLED) 白色 |  | [購入先URL](https://akizukidenshi.com/catalog/g/g112031/)| |
+| イルミネーションロータリーエンコーダ用ピッチ変換基板 | SFE-BOB-11722 | [購入先URL](https://www.switch-science.com/products/1308?srsltid=AfmBOopGGrrqZFvyvS5xYhzGZG8HVmHDNQKUY4yKhhwYDoHrCVhfIAhd) | 廃盤だが千石電商では販売(2026年1月時点） |
+| ソレノイド | ZHO-0420S-05A4.5(5V) | [購入先URL](https://akizukidenshi.com/catalog/g/g110761//) | |
+| NchパワーMOSFET | 2SK4017(Q) | [購入先URL](https://akizukidenshi.com/catalog/g/g107597/) | |
+| カーボン抵抗　10kΩ | RD25S 10K | [購入先URL](https://akizukidenshi.com/catalog/g/g125103/) | |
+| 汎用整流用ダイオード 1000V1A | 1N4007-B | [購入先URL](https://akizukidenshi.com/catalog/g/g108327/) | |
+| 電解コンデンサー1000μF35V | 35ZLH1000MEFC12.5X20 | [購入先URL](https://akizukidenshi.com/catalog/g/g102722/) | |
+| チェック端子(テストポイント) | TEST-22 | [購入先URL](https://akizukidenshi.com/catalog/g/g112216/) | |
 | チンベル（卓上ベル） |  |  | |
 
 
