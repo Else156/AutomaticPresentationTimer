@@ -19,7 +19,7 @@ Raspberry Pi Pico、SSD1306 OLEDディスプレイ、ソレノイド、および
 
 | 部品名 | 型番 | URL | 備考 |
 | :--- | :--- | :--- | :--- |
-| Raspberry Pi Pico | SC0915 | 購入先URL[https://akizukidenshi.com/catalog/g/g116132/] | |
+| Raspberry Pi Pico | SC0915 | [購入先URL](https://akizukidenshi.com/catalog/g/g116132/) | |
 | 有機ELディスプレイ(OLED) 白色 |  | 購入先URL[https://akizukidenshi.com/catalog/g/g112031/]| |
 | イルミネーションロータリーエンコーダ用ピッチ変換基板 | SFE-BOB-11722 | 購入先URL[https://www.switch-science.com/products/1308?srsltid=AfmBOopGGrrqZFvyvS5xYhzGZG8HVmHDNQKUY4yKhhwYDoHrCVhfIAhd] | 廃盤だが千石電商では販売(2026年1月時点） |
 | ソレノイド | ZHO-0420S-05A4.5(5V) | 購入先URL[https://akizukidenshi.com/catalog/g/g110761//] | |
