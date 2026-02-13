@@ -55,11 +55,18 @@ Raspberry Pi Pico、SSD1306 OLEDディスプレイ、ソレノイド、および
 
 ```text
 .
-├── main.py                   # エントリーポイント。状態遷移と設定の保存/読込を管理
-├── hardware.py               # GPIO制御（ソレノイド、エンコーダ、ボタン）
-├── display.py                # SSD1306への描画処理
-├── presentation_timer_mode.py # タイマー計測・実行モードのロジック
-├── setting_mode.py           # メニュー選択モードのロジック
-├── edit_mode.py              # 時間設定変更モードのロジック
-├── ssd1306.py                # ディスプレイ用ドライバライブラリ (別途入手)
-└── settings.json             # 設定保存ファイル (初回実行時に自動生成)
+├── circuit/                               # 回路設計関連
+│   ├── AutomaticPresentationTimer_v1.0    # Kicadデータが格納
+|   └── library/KiCad-RP-Pico-main         # Kicadでの使用ライブラリが格納
+├── src/                       # ソースコード
+│   ├── main.py                # エントリーポイント。状態遷移と設定の保存/読込を管理
+│   ├── hardware.py            # GPIO制御（ソレノイド、エンコーダ、ボタン）
+│   ├── display.py             # SSD1306への描画処理
+│   ├── presentation_timer_mode.py # タイマー計測・実行モードのロジック
+│   ├── setting_mode.py        # メニュー選択モードのロジック
+│   ├── edit_mode.py           # 時間設定変更モードのロジック
+|   └── settings.json          # 設定保存ファイル (初回実行時に自動生成)
+└── README.md
+
+> [!WARNING]
+> **警告**: プログラムを実行する場合は、ディスプレイ用ドライバライブラリとしてssd1306.pyを得る必要があります。
